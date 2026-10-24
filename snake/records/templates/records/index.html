@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Рекорды Snake</title>
+    <style>
+        body {
+            background: #111;
+            color: #eee;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+            margin: 0;
+        }
+        h1 { color: #00dd66; }
+        table {
+            border-collapse: collapse;
+            min-width: 600px;
+            background: #1c1c1c;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 221, 102, 0.15);
+        }
+        th, td {
+            padding: 12px 20px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        th { background: #222; color: #00dd66; }
+        tr:hover { background: #262626; }
+        .top1 { color: gold; font-weight: bold; }
+        .top2 { color: silver; font-weight: bold; }
+        .top3 { color: #cd7f32; font-weight: bold; }
+        .empty { color: #888; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Таблица рекордов</h1>
+    {% if records %}
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Игрок</th>
+            <th>Счёт</th>
+            <th>Дата</th>
+        </tr>
+        {% for r in records %}
+        <tr>
+            <td class="{% if forloop.counter == 1 %}top1{% elif forloop.counter == 2 %}top2{% elif forloop.counter == 3 %}top3{% endif %}">
+                {{ forloop.counter }}
+            </td>
+            <td>{{ r.player_name }}</td>
+            <td>{{ r.score }}</td>
+            <td>{{ r.created_at|date:"d.m.Y H:i" }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <p class="empty">Пока нет рекордов — сыграйте в игру!</p>
+    {% endif %}
+</body>
+</html>
